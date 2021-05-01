@@ -1,0 +1,167 @@
+/**
+ * Made with Duckuino, an open-source project.
+ * Check the license at 'https://github.com/Dukweeno/Duckuino/blob/master/LICENSE'
+ */
+
+#include "Keyboard.h"
+
+void typeKey(uint8_t key)
+{
+  Keyboard.press(key);
+  delay(50);
+  Keyboard.release(key);
+}
+
+/* Init function */
+void setup()
+{
+  // Begining the Keyboard stream
+  Keyboard.begin();
+
+  // Wait 500ms
+  delay(500);
+
+  // LockItRockIt 1.0
+  // 
+  // Author: Bucky67GTO
+  // Duckencoder: 2.6.3
+  // Target: Windows 10
+  // Description: If the User forgets to lock their computer, this script will go to a web image of your choosing and change their desktop to that image.
+  // After applying the image to the desktop, it cleans up the image location. With minor tweeks, you can have it be the lock screen as well.
+  // 
+  delay(3000);
+  Keyboard.press(KEY_LEFT_GUI);
+  Keyboard.press('r');
+  Keyboard.releaseAll();
+
+  delay(250);
+  Keyboard.print(F("microsoft-edge:http://img13.deviantart.net/fa59/i/2013/148/8/1/pinkie_pie_lockscreen_project_by_sinkurtiz-d66w98s.jpg"));
+
+  typeKey(KEY_RETURN);
+
+  delay(3000);
+  Keyboard.press(KEY_LEFT_GUI);
+  Keyboard.press(KEY_F11);
+  Keyboard.releaseAll();
+
+  delay(1500);
+  typeKey(206);
+
+  Keyboard.press(KEY_LEFT_ALT);
+  Keyboard.press(KEY_F4);
+  Keyboard.releaseAll();
+
+  Keyboard.press(KEY_LEFT_GUI);
+  Keyboard.press('r');
+  Keyboard.releaseAll();
+
+  delay(250);
+  Keyboard.print(F("mspaint"));
+
+  typeKey(KEY_RETURN);
+
+  delay(2000);
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press('v');
+  Keyboard.releaseAll();
+
+  Keyboard.press(KEY_LEFT_ALT);
+  Keyboard.press('h');
+  Keyboard.releaseAll();
+
+  delay(250);
+  Keyboard.print(F("RE"));
+
+  typeKey(KEY_TAB);
+
+  delay(250);
+  Keyboard.print(F("188"));
+
+  typeKey(KEY_TAB);
+
+  typeKey(KEY_TAB);
+
+  typeKey(KEY_TAB);
+
+  typeKey(KEY_TAB);
+
+  typeKey(KEY_TAB);
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press('s');
+  Keyboard.releaseAll();
+
+  delay(250);
+  Keyboard.print(F("USERPROFILE\\LockMeUpReminder.jpg"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.press(KEY_LEFT_ALT);
+  Keyboard.press('f');
+  Keyboard.releaseAll();
+
+  delay(250);
+  Keyboard.print(F("B"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.press(KEY_LEFT_ALT);
+  Keyboard.press(KEY_F4);
+  Keyboard.releaseAll();
+
+  Keyboard.press(KEY_LEFT_GUI);
+  Keyboard.press('r');
+  Keyboard.releaseAll();
+
+  delay(250);
+  Keyboard.print(F("cmd"));
+
+  typeKey(KEY_RETURN);
+
+  delay(250);
+  Keyboard.print(F("Del LockMeUpReminder.jpg"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.press(KEY_LEFT_ALT);
+  Keyboard.press(KEY_F4);
+  Keyboard.releaseAll();
+
+  Keyboard.press(KEY_LEFT_GUI);
+  Keyboard.press('d');
+  Keyboard.releaseAll();
+
+  typeKey(229);
+
+  delay(250);
+  Keyboard.print(F("r"));
+
+  typeKey(KEY_TAB);
+
+  typeKey(KEY_TAB);
+
+  typeKey(KEY_TAB);
+
+  typeKey(KEY_TAB);
+
+  typeKey(KEY_TAB);
+
+  delay(250);
+  Keyboard.print(F("t"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.press(KEY_LEFT_ALT);
+  Keyboard.press(KEY_F4);
+  Keyboard.releaseAll();
+
+  typeKey(KEY_END);
+
+  // Ending stream
+  Keyboard.end();
+}
+
+/* Unused endless loop */
+void loop() {}

